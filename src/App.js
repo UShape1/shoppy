@@ -1,8 +1,11 @@
 import SearchBar from "./components/SearchBar";
 import { useState } from "react";
 import Shops from "./components/Shops";
+import { GoogleApi, fetchMapsUrl } from "./GoogleApi.js";
+import { useState } from "react";
 
 function App() {
+  const [apiResponse, setApiResponse] = useState({ hello: "world" });
   const [shops, setShops] = useState([
     {
       id: 1,
@@ -35,6 +38,8 @@ function App() {
       <SearchBar />
 
       <Shops shops={shops} />
+      <pre>{JSON.stringify(apiResponse, null, 2)}</pre>
+      <GoogleApi setApiResponse={setApiResponse} />
     </div>
   );
 }
