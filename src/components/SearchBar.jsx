@@ -2,7 +2,7 @@ import { Navbar, Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-const SearchBar = () => {
+const SearchBar = ({ setKeyword }) => {
   return (
     <Container>
       <Navbar bg="light">
@@ -11,7 +11,7 @@ const SearchBar = () => {
           <Form className="d-flex">
             <Form.Control
               type="search"
-              placeholder="Search"
+              placeholder="Shops"
               className="me-2"
               aria-label="Search"
             />

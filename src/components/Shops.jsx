@@ -7,11 +7,13 @@ const Shops = ({ shops }) => {
     <div className="Shops">
       <Container>
         <Row xs="auto" md="auto" lg="auto" className="justify-content-center">
-          {shops.map((shop) => (
-            <Col key={shop.id} className="justify-content-center">
-              <Shop shop={shop} />
-            </Col>
-          ))}
+          {shops
+            .sort((a, b) => a.result.points < b.result.points)
+            .map((shop) => (
+              <Col key={shop.id} className="justify-content-center">
+                <Shop shop={shop.result} />
+              </Col>
+            ))}
         </Row>
       </Container>
     </div>

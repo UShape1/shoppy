@@ -11,6 +11,7 @@ const fetchNearestPlacesFromGoogle = async (latitude, longitude, radius) => {
     longitude +
     "&radius=" +
     radius +
+    "&type=supermarket" +
     "&key=" +
     GOOGLE_MAPS_API_KEY;
 
@@ -20,21 +21,34 @@ const fetchNearestPlacesFromGoogle = async (latitude, longitude, radius) => {
   return resultJson;
 };
 
-export const fetchMapsUrl = async (placeId) => {
+const fetchMapsDetails = async (placeId) => {
   const url =
-    "https://maps.googleapis.com/maps/api/place/details/json?fields=url&place_id=" +
+    "https://maps.googleapis.com/maps/api/place/details/json?fields=url%2Cname%2Cicon%2Cphotos&place_id=" +
     placeId +
     "&key=" +
     GOOGLE_MAPS_API_KEY;
+
   const fetchResult = await fetch(url);
   const resultJson = await fetchResult.json();
-  return (
-    <a
-      href={resultJson.result.url}
-      target="_blank"
-      rel="noopener noreferrer"
-    ></a>
-  );
+  return resultJson;
+};
+
+const fetchMapsPicture = async (detailsJson) => {
+  try {
+    const url =
+      "https://maps.googleapis.com/maps/api/place/photo?photo_reference=" +
+      detailsJson.result.photos[0].photo_reference +
+      "&maxwidth=287" +
+      "&key=" +
+      GOOGLE_MAPS_API_KEY;
+
+    const fetchResult = await fetch(url);
+    return fetchResult;
+  } catch (err) {
+    return {
+      url: "https://www.timesnewroman.ro/wp-content/uploads/2022/05/elon-musk-obor-550x370.jpg",
+    };
+  }
 };
 
 export const GeoLocation = ({ setLocationInfo }) => {
@@ -61,18 +75,32 @@ export const GeoLocation = ({ setLocationInfo }) => {
   return;
 };
 
-export const GoogleApi = ({ setApiResponse }) => {
+export const GoogleApi = ({ updateShops }) => {
   const [locationInfo, setLocationInfo] = useState({ status: "Unknown" });
-  const [ceva, setCeva] = useState({ ceva: "ceva" });
 
   useEffect(() => {
     if (locationInfo.status === "Connected")
       fetchNearestPlacesFromGoogle(
         locationInfo.coords.latitude,
         locationInfo.coords.longitude,
-        50000
-      ).then((json) => setApiResponse(json));
-    setCeva("altceva");
+        5000
+      ).then((json) => {
+        for (let shop of json.results) {
+          fetchMapsDetails(shop.place_id).then((detailsJson) =>
+            fetchMapsPicture(detailsJson).then((picture) => {
+              updateShops({
+                ...detailsJson,
+                id: shop.place_id,
+                result: {
+                  ...detailsJson.result,
+                  points: Math.floor(Math.random() * 1000 + 1),
+                  photo_url: picture.url,
+                },
+              });
+            })
+          );
+        }
+      });
   }, [locationInfo]);
 
   return <GeoLocation setLocationInfo={setLocationInfo} />;

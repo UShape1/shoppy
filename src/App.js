@@ -1,44 +1,25 @@
 import SearchBar from "./components/SearchBar";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Shops from "./components/Shops";
-import { GoogleApi, fetchMapsUrl } from "./GoogleApi.js";
+import { GoogleApi } from "./GoogleApi.js";
 
 function App() {
-  const [apiResponse, setApiResponse] = useState({ hello: "world" });
-  const [shops, setShops] = useState([
-    {
-      id: 1,
-      name: "MegaImage",
+  const [shops, setShops] = useState([]);
+  const [keyword, setKeyword] = useState("Shops");
+
+  const updateShops = useCallback(
+    (newShop) => {
+      setShops((previousShops) => [...previousShops, newShop]);
     },
-    {
-      id: 2,
-      name: "Profi",
-    },
-    {
-      id: 3,
-      name: "Jerrys",
-    },
-    {
-      id: 4,
-      name: "Auchan",
-    },
-    {
-      id: 5,
-      name: "Penny",
-    },
-    {
-      id: 6,
-      name: "Lidl",
-    },
-  ]);
+    [setShops]
+  );
 
   return (
     <div className="App">
-      <SearchBar />
+      <SearchBar setKeyword={setKeyword} />
 
       <Shops shops={shops} />
-      <pre>{JSON.stringify(apiResponse, null, 2)}</pre>
-      <GoogleApi setApiResponse={setApiResponse} />
+      <GoogleApi updateShops={updateShops} />
     </div>
   );
 }
