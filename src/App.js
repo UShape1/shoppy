@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import SearchBar from "./components/SearchBar";
+import { useState } from "react";
+import Shops from "./components/Shops";
 
 function App() {
+  const [shops, setShops] = useState([
+    {
+      id: 1,
+      name: "MegaImage",
+    },
+    {
+      id: 2,
+      name: "Profi",
+    },
+    {
+      id: 3,
+      name: "Jerrys",
+    },
+    {
+      id: 4,
+      name: "Auchan",
+    },
+    {
+      id: 5,
+      name: "Penny",
+    },
+    {
+      id: 6,
+      name: "Lidl",
+    },
+  ]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SearchBar />
+
+      <Shops shops={shops} />
     </div>
   );
 }
