@@ -1,72 +1,59 @@
-# shoppy
+# shoppy 
 
-# Getting Started with Create React App
+Shoppy is a web app that aims to connect small and medium businesses to consumers by providing online presence that is otherwise hard to attain
+## Requirements
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Make sure the following packages are installed:
+* git
+* node 
+* npm 
 
-## Available Scripts
+For Ubuntu, run the commands below to install all requirements:
 
-In the project directory, you can run:
+```bash
+$ sudo apt install git
+$ sudo apt install nodejs
+$ curl -L https://npmjs.org/install.sh | sudo sh 
+```
 
-### `npm start`
+## Setting up
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Clone the repository and navigate to the root of the directory:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+$ git clone https://github.com/UShape1/shoppy.git
+$ cd shoppy
+```
 
-### `npm test`
+Create your own Google Maps API key following the instructions on the [official page](https://developers.google.com/maps/documentation/javascript/get-api-key).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Place your own API key in the root of the project, in a ``.env.local`` file, with the following contents:
 
-### `npm run build`
+```
+REACT_APP_GOOGLE_MAPS_API_KEY=YOUR_API_KEY
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Running
+After having everything setup, you can run the application using:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+$ npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This will start the application that is now accesible via any browser at the URL:
 
-### `npm run eject`
+```
+http://localhost:3000
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+On some browsers, running the aplication requires an extension for allowing ``CORS``, such as [this](https://addons.mozilla.org/en-US/firefox/addon/access-control-allow-origin/) for Firefox or [this](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf) for Chrome.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## About this demo
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This app currently uses the Google Maps API to fetch businesses around the location of the user. This would eventually be replaced by businesses who request to join our database.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Next steps
 
-## Learn More
+Getting businesses interested in joining the platform and generating a big enough user base would allow us to store our own database of businesses that will be provided as suggestions, instead of fetching nearby shops from Google Maps.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+It is also important for users to be interested in using the application, so adding a reward system with products and offers that the user can spend their accumulted points on is another key feature that will be added.
